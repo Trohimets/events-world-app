@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useState, useCallback, useEffect } from 'react'
 import FormInput from './FormInput'
+import { Button } from 'antd'
 
 export const Login = () => {
     const [login, setLogin ] = useState('')
@@ -41,11 +42,14 @@ export const Login = () => {
     const setPasswordValue = useCallback((value) => {
         setPassword(value)
     }, []) 
+
+
+    const navigate =  useNavigate()
     return (
         <>
-        <form style={{width: '300px', height: '300px', border: '1px solid black'}} onSubmit={loginHandler}>
+        <form style={{width: '300px', height: '300px', border: '1px solid black', display: 'flex', flexDirection: 'column', gap:"10px", padding: '0 10px', alignItems: 'center '}} onSubmit={loginHandler}>
             <h2>Форма входа</h2>
-            <button type="submit"><Link to="/registration">Регистрация</Link></button>
+          <Button type='primary' onClick={() => navigate('/registration')} style={{margin: '0 5px 0 0 '}}>Регистрация</Button> 
             <FormInput
             name="name"
             value={login}
@@ -60,12 +64,6 @@ export const Login = () => {
             />
             <button type="submit">Войти</button>
         </form>
-        <li>
-        <Link to="/">Перейти на главную</Link>
-        </li>
-        <li>
-        <Link to="/about">На страницу о проекте</Link>
-        </li>
         </>
         
     )

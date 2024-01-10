@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { Button } from 'antd'
 import { useState, useCallback, useEffect } from 'react'
 import FormInput from './FormInput'
 
@@ -73,12 +73,12 @@ export const Registration = () => {
         setEmail(value)
     }, []) 
 
-
+    const navigate =  useNavigate()
     return (
         <>
         <form style={{width: '300px', height: '300px', border: '1px solid black'}} onSubmit={loginHandler}>
             <h2>Форма входа</h2>
-            <button type="submit"><Link to="/login">Вернуться на страницу авторизации</Link></button>
+            <Button type='primary' onClick={() => navigate('/login')} style={{margin: '0 5px 0 0 '}}>Вернуться на страницу авторизации</Button> 
             <FormInput
             name="name"
             value={login}
@@ -107,14 +107,8 @@ export const Registration = () => {
             isError={isEmailError}
             placeholder="Email"
             />
-            <button type="submit">Войти</button>
+            <Button type='primary' style={{margin: '0 5px 0 0 '}}>Зарегистрироваться</Button> 
         </form>
-        <li>
-        <Link to="/">Перейти на главную</Link>
-        </li>
-        <li>
-        <Link to="/about">На страницу о проекте</Link>
-        </li>
         </>
         
     )

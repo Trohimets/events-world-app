@@ -1,15 +1,39 @@
 import { Link } from 'react-router-dom'
+import { useState, useCallback, useEffect } from 'react'
+import FormInput from '../Login/FormInput'
 
 export const Main = () => {
+    const [location, setLocation ] = useState('')
+    const [isLocationError, setIsLocationError] = useState(false)
+    const locationHandler = (e) => {
+        e.preventDefault();
+        const payload = {
+            location: location
+        }
+    fetch('', { data: payload })
+    }
+    useEffect(() => {
+        if (location.length < 4 && location.length > 0) {
+            setIsLocationError(true)
+        }
+        else {
+            setIsLocationError(false)
+        }
+    }, [location]);
+    const setLocationValue = useCallback((value) => {
+        setLocation(value)
+    }, []) 
     return (
         <>
-            <h1>Я страница с полем ввода и таблицей</h1>
-            <li>
-            <Link to="/about">На страницу о проекте</Link>
-            </li>
-            <li>
-            <Link to="/login">Войти</Link>
-            </li>
+            <h3>Для начала работы введите в поле местоположение</h3>
+            <FormInput
+            name="location"
+            value={location}
+            setValue={setLocationValue}
+            isError={isLocationError}
+            placeholder="Введите местоположение"
+            />
+            <button type="submit">Определение координат</button>
         </>
         )
     }
