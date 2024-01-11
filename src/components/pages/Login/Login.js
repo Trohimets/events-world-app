@@ -49,20 +49,23 @@ export const Login = () => {
         <>
         <form style={{width: '300px', height: '300px', border: '1px solid black', display: 'flex', flexDirection: 'column', gap:"10px", padding: '0 10px', alignItems: 'center '}} onSubmit={loginHandler}>
             <h2>Форма входа</h2>
-          <Button type='primary' onClick={() => navigate('/registration')} style={{margin: '0 5px 0 0 '}}>Регистрация</Button> 
             <FormInput
             name="name"
             value={login}
             setValue={setLoginValue}
             isError={isLoginError}
+            placeholder="Логин"
             />
             <FormInput
             name="password"
             value={password}
             setValue={setPasswordValue}
             isError={isPasswordError}
+            placeholder="Пароль"
             />
-            <button type="submit">Войти</button>
+            <Button style={{margin: '0 5px 0 0 '}}>Войти</Button> 
+            <div>Перейти на страницу регистрации</div>
+            <Button type='primary' onClick={() => navigate('/registration')} style={{margin: '0 5px 0 0 '}}>Регистрация</Button> 
         </form>
         </>
         

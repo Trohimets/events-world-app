@@ -34,6 +34,18 @@ export const Main = () => {
             placeholder="Введите местоположение"
             />
             <button type="submit">Определение координат</button>
+            <h3>Результаты запроса</h3>
+            <table border="1">
+                <tr>
+                <th>Вид загрязнения</th><th>Зарегистрированные значения</th><th>ПДК</th>
+                </tr>
+                <tr>
+                <td>-</td><td>-</td><td>-</td>
+                </tr>
+                <tr>
+                <td>-</td><td>-</td><td>-</td>
+                </tr>
+            </table>
         </>
         )
     }
