@@ -14,3 +14,12 @@ export async function getData(search_name) {
     return []; // Возвращаем пустой массив в случае ошибки
   }
 }
+
+export function filterObjects(inputArray) {
+  return inputArray.map(item => ({
+    name: item.name,
+    package: item.package,
+    producer: item.producer,
+    price: item.price
+  }));
+}
