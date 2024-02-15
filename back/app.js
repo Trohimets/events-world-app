@@ -13,10 +13,10 @@ app.use('/', userRouter);
 // Получение информации о задаче (требуется авторизация)
 app.post('/requests/', authenticateToken, async (req, res) => {
   const search_name = req.body.search_name
-  const result = getData(search_name)
+  const  user_id = req.body.user_id
+  const result = await getData(search_name)
   console.log(result)
 });
-
 // Функция для проверки авторизации
 function authenticateToken(req, res, next) {
   const token = req.headers['authorization'];

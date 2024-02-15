@@ -18,8 +18,9 @@ export class Auth {
         if (user) {
             try {
               if (await bcrypt.compare(password, user.password)) {
+                const id =user.id
                 const token = jwt.sign({ id: user.id, username: user.username }, 'secret', { expiresIn: '1h' });
-                res.status(200).json({ token });
+                res.status(200).json({ token, id });
               } else {
                 res.status(401).json({ error: 'Неправильное имя пользователя или пароль' });
               }
