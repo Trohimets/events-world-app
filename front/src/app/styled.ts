@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const AppStyles = createGlobalStyle`
 
@@ -35,7 +35,7 @@ export const AppStyles = createGlobalStyle`
     min-height: 100%;
     background-color:  #fafafa;
     text-rendering: optimizespeed;
-    max-width: 1920px;
+    /* max-width: 1920px; */
     margin-left: auto;
     margin-right: auto;
     &::-webkit-scrollbar {

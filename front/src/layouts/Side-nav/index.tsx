@@ -22,9 +22,10 @@ const SideNavigation: FC<ISideNavigationProps> = ({
   isCollapsed,
   setIsCollapsed,
 }) => {
-  const itemsForUser: MenuItem[] = [
+  const menuItems: MenuItem[] = [
     getItem(<Link to={Page.ABOUT}>О сервисе</Link>, "1", <PieChartOutlined />),
     getItem(<Link to={Page.SEARCH}>Поиск</Link>, "2", <DesktopOutlined />),
+    getItem(<Link to={Page.HISTORY}>История</Link>, "3", <DesktopOutlined />),
   ];
 
   function getItem(
@@ -47,7 +48,7 @@ const SideNavigation: FC<ISideNavigationProps> = ({
         <SliderMenu
           defaultSelectedKeys={["1"]}
           mode="inline"
-          items={itemsForUser}
+          items={menuItems}
         />
       </MainSider>
 

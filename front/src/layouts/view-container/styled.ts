@@ -13,7 +13,7 @@ export const ContentWrapper = styled.section<ContentWrapperProps>`
   box-sizing: border-box;
   padding: 0 20px;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0 0 0 auto;
   overflow-y: scroll;
   width: ${({ iscollapsed }) => (iscollapsed ? "100%" : "calc(100% - 260px)")};
   &::-webkit-scrollbar {

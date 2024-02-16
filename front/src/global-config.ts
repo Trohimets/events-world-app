@@ -5,14 +5,13 @@ let ENV, BASE_URL, BASE_API_PATH;
 switch (REACT_APP_ENVIRONMENT) {
   case "development":
     ENV = "develop";
-    BASE_URL = "https://localhost:4000";
+    BASE_URL = "http://localhost:3000";
     BASE_API_PATH = "/";
     break;
   default:
     ENV = "production";
-    BASE_URL = "https://";
+    BASE_URL = "http://";
     BASE_API_PATH = "/";
-    console.log("2");
     break;
 }
 

@@ -1,22 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { REACT_APP_BASE_API_PATH, REACT_APP_BASE_URL } from "../global-config";
-import {
-  YANDEX_GEOKODER_API_KEY,
-  YANDEX_WEATHER_API_KEY,
-} from "../utils/constants/api";
 
 export enum queryMethod {
   GET = "get",
-  POST = "post",
+  POST = "POST",
   PUT = "put",
   DELETE = "delete",
 }
 const baseQuery = fetchBaseQuery({
-  baseUrl: REACT_APP_BASE_URL,
+  baseUrl: "/api",
+  credentials: "same-origin",
   prepareHeaders: (headers) => {
     headers.set("Content-Type", "application/json");
-    headers.set("X-Yandex-API-Key", YANDEX_WEATHER_API_KEY);
-    // headers.set("Content-Type", YANDEX_GEOKODER_API_KEY);
+    headers.set("Access-Control-Allow-Origin", "*");
+    headers.set("Authorization", localStorage.getItem("token") ?? "");
     return headers;
   },
 });

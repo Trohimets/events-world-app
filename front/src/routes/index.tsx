@@ -6,6 +6,7 @@ import { Unavailable } from "../pages/unavailable";
 import { NotFound } from "../pages/not-found";
 import { AboutPage } from "../views/About";
 import { SearchPage } from "../views/Search";
+import { HistoryPage } from "../views/History";
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path={Page.MAIN} element={<MainPage />}>
         <Route path={Page.ABOUT} element={<AboutPage />} />
         <Route path={Page.SEARCH} element={<SearchPage />} />
+        <Route path={Page.HISTORY} element={<HistoryPage />} />
       </Route>
       <Route path={Page.UNAVAILABLE} element={<Unavailable />} />
       <Route path={Page.NOT_FOUND} element={<NotFound />} />

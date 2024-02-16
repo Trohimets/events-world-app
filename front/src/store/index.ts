@@ -7,7 +7,6 @@ import { api } from "../api";
 enum ReducerName {
   User = "user",
   Modal = "modal",
-  Theme = "theme",
   Auth = "auth",
 }
 

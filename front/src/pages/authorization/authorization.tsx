@@ -1,17 +1,55 @@
 import { FC, useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input, Switch } from "antd";
 import { AuthContainer, ErrorMessage, Label, LoginForm } from "./styled";
-import { useAppDispatch } from "../../hooks";
-import { useNavigate } from "react-router-dom";
-import { DASHBOARD_URI } from "../../utils/constants/navigation";
 import { errorHandler } from "../../utils/errorHandler";
-import { FieldType, ValuesType } from "../../utils/types/types";
-import { setUserOnLoad } from "../../store/user";
-
+import { FieldType } from "../../utils/types/types";
+import { useGetLoginUserMutation } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
+interface FormData {
+  username: string;
+  password: string;
+}
 export const Authorization: FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [error, setError] = useState();
+
+  const [isLogin, setIsLogin] = useState(true);
+  const onChange = () => {
+    setIsLogin((prev) => !prev);
+  };
+  const navigate = useNavigate();
+  const handleAuth = (formData: FormData) => {
+    const body = {
+      username: formData.username,
+      password: formData.password,
+      authType: isLogin ? "login" : "register",
+    };
+
+    getAuthMutation(body)
+      .unwrap()
+      .then((response) => {
+        if (isLogin) {
+          localStorage.setItem("token", response.token);
+          localStorage.setItem("user_id", response.id);
+          navigate("/");
+        } else if (!isLogin) setIsLogin(true);
+      })
+      .catch((error) => {
+        console.error("Authentication error:", error);
+      });
+  };
+
+  const [getAuthMutation] = useGetLoginUserMutation();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleUsernameChange = (event: any) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event: any) => {
+    setPassword(event.target.value);
+  };
 
   return (
     <>
@@ -21,7 +59,8 @@ export const Authorization: FC = () => {
         >
           Учебное задание
         </div>
-        <div style={{ fontSize: "1.5em", padding: "0 0 40px 0" }}>
+        <Switch defaultChecked onChange={onChange} />
+        <div style={{ fontSize: "1.5em", padding: "0 0 10px 0" }}>
           Для доступа к сервису требуется авторизация
         </div>
         <LoginForm
@@ -29,7 +68,8 @@ export const Authorization: FC = () => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
-          // onFinish={handleLogin}
+          //@ts-ignore
+          onFinish={handleAuth}
           autoComplete="off"
         >
           <Form.Item<FieldType>
@@ -37,7 +77,7 @@ export const Authorization: FC = () => {
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <Input />
+            <Input value={username} onChange={handleUsernameChange} />
           </Form.Item>
 
           <Form.Item<FieldType>
@@ -45,22 +85,20 @@ export const Authorization: FC = () => {
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password />
+            <Input.Password value={password} onChange={handlePasswordChange} />
           </Form.Item>
 
-          <Form.Item<FieldType>
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ margin: "0 auto", display: "flex" }}
           >
-            <Checkbox>Запомнить меня</Checkbox>
-          </Form.Item>
+            <p style={{ color: "white" }}>
+              {" "}
+              {isLogin ? "Войти" : "Зарегистрироваться"}
+            </p>
+          </Button>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              <p style={{ color: "white" }}>Войти</p>
-            </Button>
-          </Form.Item>
           {error ? <ErrorMessage>{errorHandler(error)}</ErrorMessage> : null}
         </LoginForm>
       </AuthContainer>

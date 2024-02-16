@@ -18,7 +18,6 @@ app.post('/requests/', authenticateToken, async (req, res) => {
   const parseData = await getData(search_name)
   const filterData = filterObjects(parseData)
   const jsonData = JSON.stringify(filterData);
-  console.log(filterData)
   await pool.query('insert into requests(user_id, query, results) values($1, $2, $3)', [
     user_id,
     search_name,
