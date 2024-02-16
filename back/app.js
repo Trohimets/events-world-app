@@ -28,9 +28,11 @@ app.post('/requests/', authenticateToken, async (req, res) => {
 });
 
 app.post('/history', authenticateToken, async (req, res) => {
-  const { user_id } = req.body;
-  const result = await pool.query('select query, results from requests where user_id = $1', [
-    user_id
+  const { user_id, offset } = req.body;
+  const result = await pool.query('select query, results from requests where user_id = $1' +
+  ' order by id desc limit $2', [
+    user_id,
+    offset
   ]);
   const jsonData = JSON.stringify(result.rows);
 
