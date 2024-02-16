@@ -11,20 +11,34 @@ app.use(bodyParser.json());
 app.use('/', userRouter);
 
 
-// Получение информации о задаче (требуется авторизация)
+// Отправка поискового запроса, получение и запись в БД результата (требуется авторизация)
 app.post('/requests/', authenticateToken, async (req, res) => {
   const search_name = req.body.search_name
   const  user_id = req.body.user_id
   const parseData = await getData(search_name)
   const filterData = filterObjects(parseData)
+  const jsonData = JSON.stringify(filterData);
+  console.log(filterData)
   await pool.query('insert into requests(user_id, query, results) values($1, $2, $3)', [
     user_id,
     search_name,
-    filterData
+    jsonData
   ]);
   res.status(200).send(filterData);
-
 });
+
+app.post('/history', authenticateToken, async (req, res) => {
+  const { user_id } = req.body;
+  const result = await pool.query('select query, results from requests where user_id = $1', [
+    user_id
+  ]);
+  const jsonData = JSON.stringify(result.rows);
+
+  // Отправка данных в формате JSON без экранирования
+  res.status(200).send(jsonData);
+});
+
+
 // Функция для проверки авторизации
 function authenticateToken(req, res, next) {
   const token = req.headers['authorization'];
