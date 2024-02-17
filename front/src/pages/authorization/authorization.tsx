@@ -57,7 +57,7 @@ export const Authorization: FC = () => {
         <div
           style={{ fontSize: "3em", padding: "0 0 20px 0", fontWeight: 600 }}
         >
-          Учебное задание
+          Сервис поиска предельно допустимых цен на лекарства
         </div>
         <Switch defaultChecked onChange={onChange} />
         <div style={{ fontSize: "1.5em", padding: "0 0 10px 0" }}>

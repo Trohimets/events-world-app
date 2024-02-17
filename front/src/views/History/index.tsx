@@ -8,7 +8,6 @@ interface IHistoryData {
   results: any;
 }
 export const HistoryPage = () => {
-  //   const [offset, setOffset] = useState(3);
   const [historyData, setHistoryData] = useState<IHistoryData[]>([]);
   const [getHistory] = useGetHistoryMutation();
 
@@ -18,9 +17,6 @@ export const HistoryPage = () => {
   }, []);
 
   const fetchData = (offset: number) => {
-    // if (offset >= historyData.length + 4) {
-    //   return;
-    // }
     const body = {
       user_id: localStorage.getItem("user_id"),
       offset: 10,
@@ -55,16 +51,6 @@ export const HistoryPage = () => {
           ""
         )
       )}
-
-      {/* {historyData && offset >= historyData.length + 2 ? (
-        <Button
-          onClick={() => {
-            setOffset((prev) => prev + 3);
-          }}
-        >
-          Еще
-        </Button>
-      ) : null} */}
     </>
   );
 };
